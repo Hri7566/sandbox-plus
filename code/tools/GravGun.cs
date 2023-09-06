@@ -7,12 +7,12 @@ using System.Linq;
 [Library( "gravgun" )]
 public partial class GravGun : Carriable
 {
-	public override string ViewModelPath => Cloud.Asset( "katka/gravitygun" );
+	public override string ViewModelPath => Cloud.Asset( "wiremod.v_gravity_gun2" );
 	private AnimatedEntity ViewModelArms { get; set; }
 	private AnimatedEntity ArmsAdapter { get; set; }
 	public List<CapsuleLightEntity> LightsWorld;
 	public PointLightEntity LightView;
-	public Color CrystalColor { get; set; } = Color.White;
+	// public Color CrystalColor { get; set; } = Color.White;
 
 	public PhysicsBody HeldBody { get; private set; }
 	public Vector3 HeldPos { get; private set; }
@@ -62,13 +62,14 @@ public partial class GravGun : Carriable
 		SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 
 		Tags.Add( "weapon", "solid" );
+		Model = Cloud.Model( "wiremod.gravity_gun2" );
 	}
 
 	public override void ClientSpawn()
 	{
 		base.ClientSpawn();
 
-		CrystalColor = Color.FromBytes( 172, 64, 0 );
+		// CrystalColor = Color.FromBytes( 172, 64, 0 );
 	}
 
 	public void CreateLights()
@@ -116,9 +117,11 @@ public partial class GravGun : Carriable
 		ArmsAdapter.SetParent( ViewModelEntity, true );
 		ArmsAdapter.EnableViewmodelRendering = ViewModelEntity.EnableViewmodelRendering;
 
+		/*
 		ViewModelArms = new AnimatedEntity( "models/first_person/first_person_arms.vmdl" );
 		ViewModelArms.SetParent( ArmsAdapter, true );
 		ViewModelArms.EnableViewmodelRendering = ViewModelEntity.EnableViewmodelRendering;
+		*/
 	}
 
 	public override void DestroyViewModel()
@@ -129,6 +132,7 @@ public partial class GravGun : Carriable
 		ArmsAdapter?.Delete();
 	}
 
+	/*
 	[GameEvent.Client.Frame]
 	public void ProcessLights()
 	{
@@ -170,6 +174,7 @@ public partial class GravGun : Carriable
 			}
 		}
 	}
+	*/
 
 	[GameEvent.Entity.PreCleanup]
 	protected void OnEntityPreCleanup()
